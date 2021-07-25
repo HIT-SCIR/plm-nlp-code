@@ -6,24 +6,24 @@
 
 ## 勘误
 * 书中3.4.3节`convert_t2s.py`：
-```
+```python
 f_in = open(sys.argv[0], "r")
 ```
 修正为
-```
+```python
 f_in = open(sys.argv[1], "r")
 ```
 
 * 书中3.4.3节`wikidata_cleaning.py`：
-```
+```python
 f_in = open(sys.argv[0], 'r')
 ```
 修正为
-```
+```python
 f_in = open(sys.argv[1], 'r')
 ```
 此外，为了兼容Python 3.7以上版本，将`remove_control_chars`函数修改为：
-```
+```python
 def remove_control_chars(in_str):
     control_chars = ''.join(map(chr, list(range(0, 32)) + list(range(127, 160))))
     control_chars = re.compile('[%s]' % re.escape(control_chars))
@@ -31,7 +31,7 @@ def remove_control_chars(in_str):
 ```
 
 * 书中4.6.2节`Vocab`类的`__init__`与`build`方法有误，修正为：
-```
+```python
 class Vocab:
     def __init__(self, tokens=None):
         self.idx_to_token = list()
@@ -58,7 +58,7 @@ class Vocab:
 ```
 
 * 书中4.6.5节使用的`MLP`模型类是基于`EmbeddingBag`的`MLP`实现，与4.6.3节的`MLP`实现有所区别，具体如下：
-```
+```python
 class MLP(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, num_class):
         super(MLP, self).__init__()
