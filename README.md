@@ -1,6 +1,6 @@
 # plm-nlp-book
 
-本仓库用于存放《自然语言处理：基于预训练模型的方法》（作者：车万翔、郭江、崔一鸣）一书各章节的示例代码。
+本仓库用于存放《[自然语言处理：基于预训练模型的方法](https://item.jd.com/13344628.html)》（作者：车万翔、郭江、崔一鸣）一书各章节的示例代码。
 
 
 ### 本书代码测试环境
@@ -36,7 +36,7 @@ def remove_control_chars(in_str):
     return control_chars.sub('', in_str)
 ```
 
-* 书中4.6.2节`Vocab`类的`__init__`与`build`方法有误，修正为：
+* 书中4.6.1节`Vocab`类的`__init__`与`build`方法有误，修正为：
 ```python
 class Vocab:
     def __init__(self, tokens=None):
