@@ -80,3 +80,46 @@ class MLP(nn.Module):
         log_probs = F.log_softmax(outputs, dim=1)
         return log_probs
 ```
+
+* 书中6.2.3节`ELMoLstmEncoder`类的`forward`函数实现有误，修正为：
+```python
+def forward(self, inputs, lengths):
+    batch_size, seq_len, input_dim = inputs.shape
+    rev_idx = torch.arange(seq_len).unsqueeze(0).repeat(batch_size, 1)
+    for i in range(lengths.shape[0]):
+        rev_idx[i,:lengths[i]] = torch.arange(lengths[i]-1, -1, -1)
+    rev_idx = rev_idx.unsqueeze(2).expand_as(inputs)
+    rev_idx = rev_idx.to(inputs.device)
+    rev_inputs = inputs.gather(1, rev_idx)
+
+    forward_inputs, backward_inputs = inputs, rev_inputs
+    stacked_forward_states, stacked_backward_states = [], []
+
+    for layer_index in range(self.num_layers):
+        # Transfer `lengths` to CPU to be compatible with latest PyTorch versions.
+        packed_forward_inputs = pack_padded_sequence(
+            forward_inputs, lengths.cpu(), batch_first=True, enforce_sorted=False)
+        packed_backward_inputs = pack_padded_sequence(
+            backward_inputs, lengths.cpu(), batch_first=True, enforce_sorted=False)
+
+        # forward
+        forward_layer = self.forward_layers[layer_index]
+        packed_forward, _ = forward_layer(packed_forward_inputs)
+        forward = pad_packed_sequence(packed_forward, batch_first=True)[0]
+        forward = self.forward_projections[layer_index](forward)
+        stacked_forward_states.append(forward)
+
+        # backward
+        backward_layer = self.backward_layers[layer_index]
+        packed_backward, _ = backward_layer(packed_backward_inputs)
+        backward = pad_packed_sequence(packed_backward, batch_first=True)[0]
+        backward = self.backward_projections[layer_index](backward)
+        # convert back to original sequence order using rev_idx
+        stacked_backward_states.append(backward.gather(1, rev_idx))
+
+        forward_inputs, backward_inputs = forward, backward
+
+    # stacked_forward_states: [batch_size, seq_len, projection_dim] * num_layers
+    # stacked_backward_states: [batch_size, seq_len, projection_dim] * num_layers
+    return stacked_forward_states, stacked_backward_states
+```
