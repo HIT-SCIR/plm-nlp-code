@@ -322,7 +322,7 @@ class BiLM(nn.Module):
 
 configs = {
     'max_tok_len': 50,
-    'train_file': './wsj/wsj.train.raw', # path to your training file, line-by-line and tokenized
+    'train_file': './train.txt', # path to your training file, line-by-line and tokenized
     'model_path': './elmo_bilm',
     'char_embedding_dim': 50,
     'char_conv_filters': [[1, 32], [2, 32], [3, 64], [4, 128], [5, 256], [6, 512], [7, 1024]],
@@ -334,7 +334,7 @@ configs = {
     'dropout_prob': 0.1,
     'learning_rate': 0.0004,
     'clip_grad': 5,
-    'num_epoch': 1
+    'num_epoch': 10
 }
 
 corpus_w, corpus_c, vocab_w, vocab_c = load_corpus(configs['train_file'])
