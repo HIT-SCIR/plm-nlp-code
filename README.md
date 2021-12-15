@@ -123,3 +123,14 @@ def forward(self, inputs, lengths):
     # stacked_backward_states: [batch_size, seq_len, projection_dim] * num_layers
     return stacked_forward_states, stacked_backward_states
 ```
+
+* 书中7.4.3节（199页）"句对文本分类"→"代码实现"中的`tokenize()`函数存在问题，请按如下进行修正。
+```python
+def tokenize(examples):
+    return tokenizer(examples['hypothesis'], examples['premise'], truncation=True, padding='max_length')
+```
+修正为
+```python
+def tokenize(examples):
+    return tokenizer(examples['sentence1'], examples['sentence2'], truncation=True, padding='max_length')
+```

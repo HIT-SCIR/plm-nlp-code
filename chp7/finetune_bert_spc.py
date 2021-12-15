@@ -12,7 +12,7 @@ metric = load_metric('glue', 'rte')
 
 # 对训练集进行分词
 def tokenize(examples):
-    return tokenizer(examples['hypothesis'], examples['premise'], truncation=True, padding='max_length')
+    return tokenizer(examples['sentence1'], examples['sentence2'], truncation=True, padding='max_length')
 dataset = dataset.map(tokenize, batched=True)
 encoded_dataset = dataset.map(lambda examples: {'labels': examples['label']}, batched=True)
 
