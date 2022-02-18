@@ -11,6 +11,8 @@
 * LTP: 4.0
 
 ### 勘误
+* 书中2.1.2节：3.奇异值分解小节（17页）中，矩阵**V**的维度应为|C| x r，即$\bm{V} \in \mathbb{R}^{|\mathbb{C}| \times r}$。
+
 * 书中3.4.3节`convert_t2s.py`：
 ```python
 f_in = open(sys.argv[0], "r")
