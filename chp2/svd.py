@@ -41,7 +41,7 @@ words = ["我", "喜欢", "自然", "语言", "处理", "爱", "深度", "学习
 
 for i in range(len(words)):
     plt.text(U[i, 0], U[i, 1], words[i])
-plt.xlim(0, 0.6)
+plt.xlim(-0.5, 0)
 plt.ylim(-0.5, 0.6)
 plt.savefig('svd.pdf')
 plt.show()
