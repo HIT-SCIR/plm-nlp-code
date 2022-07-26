@@ -11,6 +11,8 @@
 * LTP: 4.0
 
 ### 勘误
+* 【数学符号】一节中，【线性代数】部分【矩阵A与矩阵B的Hardamard乘积】中，Hardamard的拼写应该为Hadamard。
+
 * 书中2.1.2节：3.奇异值分解小节（17页）中，矩阵**V**的维度应为|C| x r，即$\bm{V} \in \mathbb{R}^{|\mathbb{C}| \times r}$。
 
 * 书中3.4.3节`convert_t2s.py`：
