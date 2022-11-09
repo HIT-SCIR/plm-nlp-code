@@ -98,7 +98,7 @@ for epoch in range(num_epoch):
         weight_factor = torch.clamp(torch.pow(counts / m_max, alpha), max=1.0)
         optimizer.zero_grad()
         # 计算batch内每个样本的L2损失
-        loss = (torch.sum(word_embeds * context_embeds, dim=1) + word_biases + context_biases - log_counts) ** 2
+        loss = (torch.sum(word_embeds * context_embeds, dim=1, keepdim=True) + word_biases + context_biases - log_counts) ** 2
         # 样本加权损失
         wavg_loss = (weight_factor * loss).mean()
         wavg_loss.backward()

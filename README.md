@@ -138,3 +138,12 @@ def tokenize(examples):
 def tokenize(examples):
     return tokenizer(examples['sentence1'], examples['sentence2'], truncation=True, padding='max_length')
 ```
+
+* 书中5.3.4节（143页）GloVe词向量训练部分代码在计算L2损失时存在问题，请按如下进行修正。
+```python
+    loss = (torch.sum(word_embeds * context_embeds, dim=1) + word_biases + context_biases - log_counts) ** 2
+```
+修正为
+```python
+    loss = (torch.sum(word_embeds * context_embeds, dim=1, keepdim=True) + word_biases + context_biases - log_counts) ** 2
+```
