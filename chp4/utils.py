@@ -20,9 +20,9 @@ def load_sentence_polarity():
 
     return train_data, test_data, vocab
 
-def length_to_mask(lengths):
+def length_to_mask(lengths, device):
     max_len = torch.max(lengths)
-    mask = torch.arange(max_len).expand(lengths.shape[0], max_len) < lengths.unsqueeze(1)
+    mask = torch.arange(max_len, device=device).expand(lengths.shape[0], max_len) < lengths.unsqueeze(1)
     return mask
 
 def load_treebank():
