@@ -64,7 +64,7 @@ class Transformer(nn.Module):
         inputs = torch.transpose(inputs, 0, 1)
         hidden_states = self.embeddings(inputs)
         hidden_states = self.position_embedding(hidden_states)
-        attention_mask = length_to_mask(lengths, device) == False
+        attention_mask = length_to_mask(lengths) == False
         hidden_states = self.transformer(hidden_states, src_key_padding_mask=attention_mask)
         hidden_states = hidden_states[0, :, :]
         output = self.output(hidden_states)
