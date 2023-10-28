@@ -11,6 +11,11 @@
 * LTP: 4.0
 
 ### 勘误
+* 2.1.2节（词的分布式表示），pmi计算函数代码中，以下语句注释中的“分子”应改为“分母”
+```
+expected = np.outer(row_totals, col_totals) / total # 获得每个元素的分母
+```
+
 * 【数学符号】一节中，【线性代数】部分【矩阵A与矩阵B的Hardamard乘积】中，Hardamard的拼写应该为Hadamard。
 
 * 书中2.1.2节：3.奇异值分解小节（17页）中，矩阵**V**的维度应为|C| x r，即$\bm{V} \in \mathbb{R}^{|\mathbb{C}| \times r}$。
