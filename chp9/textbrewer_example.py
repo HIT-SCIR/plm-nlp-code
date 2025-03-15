@@ -1,7 +1,4 @@
-# Defined in Section 8.3.5.3
-
 import torch
-from datasets import load_dataset
 import textbrewer
 from textbrewer import GeneralDistiller, TrainingConfig, DistillationConfig
 from transformers import BertTokenizerFast, BertForSequenceClassification, DistilBertForSequenceClassification
@@ -22,7 +19,7 @@ def collate_fn(examples):
     return dict(tokenizer.pad(examples, return_tensors='pt'))
 dataloader = torch.utils.data.DataLoader(encoded_dataset, collate_fn=collate_fn, batch_size=8)
 
-# 定义教师和学生模型
+# 定义教师模型和学生模型
 teacher_model = BertForSequenceClassification.from_pretrained('bert-base-cased')
 student_model = DistilBertForSequenceClassification.from_pretrained('distilbert-base-cased')
 
@@ -42,7 +39,7 @@ if device == 'cuda':
     teacher_model.to(device)
     student_model.to(device)
 
-# 定义adaptor、训练配置、蒸馏配置
+# 定义adaptor、训练配置和蒸馏配置
 def simple_adaptor(batch, model_outputs):
     return {'logits': model_outputs[1]}
 train_config = TrainingConfig(device=device)
@@ -56,8 +53,6 @@ distiller = GeneralDistiller(
 
 # 开始蒸馏！
 with distiller:
-    distiller.train(
-        optimizer, dataloader,
-        scheduler_class=None, scheduler_args=None,
-        num_epochs=1, callback=None)
-
+    distiller.train(optimizer, dataloader,
+                    scheduler_class=None, scheduler_args=None,
+                    num_epochs=1, callback=None)
