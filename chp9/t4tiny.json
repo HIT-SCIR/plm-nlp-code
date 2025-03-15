@@ -1,0 +1,19 @@
+{
+    "temperature" : 8,
+    "hard_label_weight": 0,
+    "kd_loss_type":"ce",
+    "kd_loss_weight":1,
+    "probability_shift": false,
+    "is_caching_logits": false,
+    "intermediate_matches":[
+        {"layer_T":[0,0],  "layer_S":[0,0], "feature":"hidden", "loss":"mmd", "weight":1},
+        {"layer_T":[3,3],  "layer_S":[1,1], "feature":"hidden", "loss":"mmd", "weight":1},
+        {"layer_T":[6,6],  "layer_S":[2,2], "feature":"hidden", "loss":"mmd", "weight":1},
+        {"layer_T":[9,9],  "layer_S":[3,3], "feature":"hidden", "loss":"mmd", "weight":1},
+        {"layer_T":[12,12],"layer_S":[4,4], "feature":"hidden", "loss":"mmd", "weight":1},
+        {"layer_T":0, "layer_S":0, "feature":"hidden", "loss":"hidden_mse", "weight":1, "proj":["linear",312,768]},
+        {"layer_T":3, "layer_S":1, "feature":"hidden", "loss":"hidden_mse", "weight":1, "proj":["linear",312,768]},
+        {"layer_T":6, "layer_S":2, "feature":"hidden", "loss":"hidden_mse", "weight":1, "proj":["linear",312,768]},
+        {"layer_T":9, "layer_S":3, "feature":"hidden", "loss":"hidden_mse", "weight":1, "proj":["linear",312,768]},
+        {"layer_T":12,"layer_S":4, "feature":"hidden", "loss":"hidden_mse", "weight":1, "proj":["linear",312,768]}]
+}
